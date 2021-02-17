@@ -32,6 +32,7 @@ from PyPDF2 import PdfFileMerger
 import pathlib                      # Enderecos
 import requests
 
+import pandas as pd
 
 
 
@@ -83,14 +84,16 @@ historia = 'https://www.amazon.com.br/s?i=stripbooks&bbn=7841278011&rh=n%3A67407
 
 literaturaEficcao = 'https://www.amazon.com.br/s?i=stripbooks&bbn=7841278011&rh=n%3A6740748011%2Cn%3A7872687011&dc&fs=true&qid=1613436486&rnid=7841278011&ref=sr_nr_n_21'
 
+policial_suspense_misterio = 'https://www.amazon.com.br/s?i=stripbooks&bbn=7841278011&rh=n%3A6740748011%2Cn%3A7872829011&dc&fs=true&qid=1613520812&rnid=7841278011&ref=sr_nr_n_23'
 
+romance = 'https://www.amazon.com.br/s?i=stripbooks&bbn=7841278011&rh=n%3A6740748011%2Cn%3A7882388011&dc&fs=true&qid=1613520812&rnid=7841278011&ref=sr_nr_n_26'
 
-
+pd.DataFrame()
 
 
 
 # Acessar pag com a data de hoje
-web.get(f'https://www.amazon.com.br/s?rh=n%3A7841775011&fs=true&ref=lp_7841775011_sar')
+web.get(policial_suspense_misterio)
 
 
 num_elementos = web.find_elements_by_xpath('//*[@id="search"]/div[1]/div[2]/div/span[3]/div[2]/div')
@@ -147,37 +150,66 @@ capturaNomesLivros()
 #                                                                       #
 #########################################################################
 
-edf = []
 
-paginas = 8
-#Percorrendo Página
-for pagina in range(3, paginas+3):
-
-    time.sleep(1)
-
-    conteudo = capturaNomesLivros()
-
-    print(conteudo)
-
-    edf.append(conteudo)
+GENEROS = ['Auto Ajuda', 'Ficção Científica', 'História', 'Literatura e Ficção', 'Policial Suspense e Mistério', 'Romance']
 
 
-    time.sleep(1)
-    proximo = web.find_elements_by_css_selector('.a-last > a:nth-child(1)')
-    proximo = proximo[0]
-    proximo.click()
+LINKS = [
+    'https://www.amazon.com.br/s?i=stripbooks&bbn=7841278011&rh=n%3A6740748011%2Cn%3A7841720011&dc&fs=true&qid=1613435977&rnid=7841278011&ref=sr_nr_n_4',
+    'https://www.amazon.com.br/s?rh=n%3A7841775011&fs=true&ref=lp_7841775011_sar',
+    'https://www.amazon.com.br/s?i=stripbooks&bbn=7841278011&rh=n%3A6740748011%2Cn%3A7843068011&dc&fs=true&qid=1613436314&rnid=7841278011&ref=sr_nr_n_16',
+    'https://www.amazon.com.br/s?i=stripbooks&bbn=7841278011&rh=n%3A6740748011%2Cn%3A7872687011&dc&fs=true&qid=1613436486&rnid=7841278011&ref=sr_nr_n_21',
+    'https://www.amazon.com.br/s?i=stripbooks&bbn=7841278011&rh=n%3A6740748011%2Cn%3A7872829011&dc&fs=true&qid=1613520812&rnid=7841278011&ref=sr_nr_n_23',
+    'https://www.amazon.com.br/s?i=stripbooks&bbn=7841278011&rh=n%3A6740748011%2Cn%3A7882388011&dc&fs=true&qid=1613520812&rnid=7841278011&ref=sr_nr_n_26'
+]
+
+
+len(LINKS)
+
+lista_pesquisa = pd.DataFrame({'GENEROS': GENEROS, 'LINKS': LINKS})
+
+lista_pesquisa
+
+
+
+
+#subir pro git
+
+
+for i in range(len(lista_pesquisa)):
+
+    # Acessar página
+    web.get(lista_pesquisa['LINKS'])
+
+    capta_livro = []
+
+    paginas = 8
+    #Percorrendo Página
+    for pagina in range(0, 30):
+
+        time.sleep(1)
+
+        conteudo = capturaNomesLivros()
+
+        print(conteudo)
+
+        capta_livro.append(conteudo)
+
+        time.sleep(1)
+        proximo = web.find_elements_by_css_selector('.a-last > a:nth-child(1)')
+        proximo = proximo[0]
+        proximo.click()
+
+
+
 
 
 
 
 capta_livro = []
-for pagina in livros_capturados:
+for pagina in edf:
     for livro in pagina:
         capta_livro.append(livro)
-
-
-len(capta_livro)
-
 
 
 

@@ -918,3 +918,24 @@ JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: Se
 JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
 JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
 JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+1613520598656	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\brunovos\\LOCALS~1\\Temp\\rust_mozprofile0tkXPp"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1613520600269	Marionette	INFO	Listening on port 58203
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1613520600676	Marionette	WARN	TLS certificate errors will be ignored for this session
+1613520600687	Marionette	ERROR	[18] No reply from Marionette:Register
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'MarionetteEvents'
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'MarionetteEvents'
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+1613523396909	Marionette	INFO	Stopped listening on port 58203
