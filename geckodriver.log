@@ -939,3 +939,36 @@ JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: Se
 JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
 JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
 1613523396909	Marionette	INFO	Stopped listening on port 58203
+1613694550943	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\brunovos\\LOCALS~1\\Temp\\rust_mozprofileaCId52"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1613694552360	Marionette	INFO	Listening on port 57099
+1613694552471	Marionette	WARN	TLS certificate errors will be ignored for this session
+1613694552480	Marionette	ERROR	[18] No reply from Marionette:Register
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'MarionetteEvents'
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: https://tpc.googlesyndication.com/sodar/sodar2.js, line 25: SecurityError: Permission denied to access property "document" on cross-origin object
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'MarionetteEvents'
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'MarionetteEvents'
+1613695235288	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:235:19
+TimedPromise@chrome://marionette/content/sync.js:220:10
+interaction.flushEventLoop@chrome://marionette/content/interaction.js:418:10
+webdriverClickElement@chrome://marionette/content/interaction.js:179:31
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'MarionetteEvents'
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'MarionetteEvents'
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'MarionetteEvents'
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'MarionetteEvents'
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'MarionetteEvents'
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'MarionetteEvents'
