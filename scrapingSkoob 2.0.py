@@ -175,11 +175,12 @@ lista_pesquisa
 
 #subir pro git
 
+todos_os_livros = []
 
 for i in range(len(lista_pesquisa)):
 
     # Acessar página
-    web.get(lista_pesquisa['LINKS'])
+    web.get(lista_pesquisa['LINKS'][i])
 
     capta_livro = []
 
@@ -200,8 +201,22 @@ for i in range(len(lista_pesquisa)):
         proximo = proximo[0]
         proximo.click()
 
+    todos_os_livros.append(capta_livro)
 
 
+todos_os_livros
+
+
+
+todos_os_livros = pd.DataFrame(todos_os_livros)
+
+
+todos_os_livros
+
+todos_os_livros.to_csv('Todos os Livros.csv', index=False)
+
+
+len(capta_livro[0])
 
 
 
