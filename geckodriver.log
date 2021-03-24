@@ -976,3 +976,7 @@ JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'MarionetteEven
 
 ###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
 
+1616463447098	geckodriver	INFO	Listening on 127.0.0.1:38455
+1616463480663	geckodriver	INFO	Listening on 127.0.0.1:59933
+1616464364775	geckodriver	INFO	Listening on 127.0.0.1:60373
+1616464372498	geckodriver	INFO	Listening on 127.0.0.1:51251

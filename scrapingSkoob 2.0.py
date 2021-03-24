@@ -62,7 +62,7 @@ binary = FirefoxBinary('C:\\Program Files\\Mozilla Firefox\\firefox.exe')
 web = webdriver.Firefox(firefox_binary=binary, executable_path='geckodriver.exe',
                         capabilities=firefox_capabilities, firefox_profile=fp)
 
-
+driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
 
 
 #########################################################################
