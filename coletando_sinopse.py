@@ -5,6 +5,8 @@
 import pandas as pd
 import requests
 import re
+import os
+import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -28,6 +30,8 @@ for i in range(len(df)):
     for j in range(len(df[i])):
         lista = df[i][j]
         lista_tratada = [livro for livro in lista if livro != 'Mais vendido']
+        lista_tratada = [livro for livro in lista if livro != 'Patrocinados']
+
         df[i][j] = lista_tratada
 
 #DATAFRAME
@@ -38,51 +42,43 @@ CATEGORIAS = ['Auto Ajuda', 'Ficção Cientifica', 'Historia', 'Literatura', 'Po
 df.columns = CATEGORIAS
 
 
-#CAPTURANDO TITULO
-titulo = df['Ficção Cientifica'][0][0]
+#FUNÇÃO PARA TRATAR TEXTO
+def dataCleaning(titulo: str) -> str:
 
+    #ELIMINANDO ()
+    titulo = titulo.replace('(', 'ini_parent')
+    busca = re.search(r'(.*?) ini_parent', titulo)
 
-df['Ficção Cientifica'][8]
+    if busca != None:
+        titulo = busca.group(1)
 
+    # ELIMINANDO +
+    titulo = titulo.replace('+', 'plus')
+    busca = re.search(r'(.*?) plus', titulo)
 
-teste = 'O Sangue do Olimpo - Volume 5. Série Os Heróis do Olimpo'
+    if busca != None:
+        titulo = busca.group(1)
 
-#O rei perverso (Vol. 2 O Povo do Ar)
+    #ELIMINANDO TRAÇOS
+    busca = re.search(r'(.*?) - ', titulo)
+    if busca != None:
+        titulo = busca.group(1)
 
-#ELIMINANDO PARENTESIS
-teste = teste.replace('(', 'ini_parent')
-busca = re.search(r'(.*?) ini_parent', teste)
+    return titulo
 
-if busca != None
-
-
-# ELIMINANDO +
-teste = teste.replace('+', 'plus')
-busca = re.search(r'(.*?) plus', teste)
-
-if busca != None
-
-
-busca = re.search(r'(.*?)-', teste)
-if busca != None
-
-
-
-
-
+#TRATANDO TÍTULOS
+for CATEGORIA in CATEGORIAS:
+    for i in range(len(df)):
+        lista_tratada = pd.Series(df[CATEGORIA][i]).apply(dataCleaning)
+        df[CATEGORIA][i] = lista_tratada.to_list()
 
 
 
+#--------------------------------------------#
+#               Preliminares                 #
+#--------------------------------------------#
 
-s = 'Part 1. Part 2. Part 3 then more text'
-re.search(r'(.*?)Part 3', s).group(1)
-
-
-df
-#Elimimar tudo que tiver 
-#     eliminar +% (tudo que está entre parentesis) .%
-
-
+#os.mknod('Historia.csv')
 
 #--------------------------------------------#
 #               Web Scraping                 #
@@ -94,120 +90,60 @@ driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
 #CONECTANDO AO SKOOB
 driver.get(f'https://www.skoob.com.br/')
 
-
 #Login e senha da conta
+input('Insira Logina e Senha\n')
 
 
-#PROCURANDO LIVRO
-busca = driver.find_element_by_xpath('//*[@id="search"]')
-busca.click()
-busca.send_keys('Senhor dos Anéis')
 
-#CLICANDO NA LUPA
-lupa = driver.find_element_by_xpath('/html/body/div/div[1]/div/div[1]/form/div[2]/span/button').click()
 
-#CLICANDO NO PRIMEIRO ITEM DA LISTA (VERIFICAR SE EXISTE)
-driver.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div[2]/div[2]/div[2]/a[1]').click()
+for i in range(len(df)):
+    for j in range(len(df['Historia'][i])):
 
-#CLICANDO EM ESPAÇO EM BRANCO
-webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
+        driver.refresh()
 
-#CAPTURANDO TÍTULO
-titulo = driver.find_element_by_css_selector('#pg-livro-titulo > h1')
-titulo = titulo.text
+        try:
 
-#CAPTURANDO DESCRIÇÃO
-descricao = driver.find_element_by_css_selector('#livro-perfil-sinopse-txt > p')
-descricao = descricao.text
+            #CAPTURANDO TÍTULO ORIGINAL
+            titulo_original = df['Historia'][i][j]
 
+            #PROCURANDO LIVRO
+            busca = driver.find_element_by_xpath('//*[@id="search"]')
+            busca.click()
+            busca.send_keys(titulo_original)
 
+            time.sleep(3)
 
+            #CLICANDO NA LUPA
+            lupa = driver.find_element_by_xpath('/html/body/div/div[1]/div/div[1]/form/div[2]/span/button').click()
 
+            time.sleep(2)
 
+            #CLICANDO NO PRIMEIRO ITEM DA LISTA (VERIFICAR SE EXISTE)
+            try:
+                driver.find_element_by_xpath('/html/body/div/div[2]/div[3]/div/div/div[2]/div[2]/div[2]/div[2]/a[1]').click()
+            except:
+                continue
 
+            #CLICANDO EM ESPAÇO EM BRANCO
+            webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
 
+            time.sleep(1)
 
+            #CAPTURANDO TÍTULO CAPTURADO
+            titulo_capturado = driver.find_element_by_css_selector('#pg-livro-titulo > h1')
+            titulo_capturado = titulo_capturado.text
 
-#---------------------------------
-df['Ficção Cientifica'][0]
+            #CAPTURANDO DESCRIÇÃO
+            descricao = driver.find_element_by_css_selector('#livro-perfil-sinopse-txt > p')
+            descricao = descricao.text
 
+            nova_linha = titulo_original + ';' + titulo_capturado + ';' + descricao
 
-idt = driver.find_elements_by_xpath('//*[@id="bookDesc_iframe_wrapper"]')
+            with open('FiccaoCientifica.csv', 'a') as acc_csv:
+                acc_csv.write(nova_linha + '\n')
+        except Exception as erro:
+            print('Erro: ', erro)
+            continue
 
-
-
-
-
-
-
-
-
-
-
-
-search = driver.find_element_by_xpath('//*[@id="twotabsearchtextbox"]')
-search.send_keys(titulo)
-
-#Clicando em procurar
-click = driver.find_element_by_xpath('//*[@id="nav-search-submit-button"]')
-click.click()
-
-
-path_primeiro_livro = '//*[@id="search"]/div[1]/div/div[1]/div/span[3]/div[2]/div[2]/div/span/div/div/div[2]/div[2]/div/div[1]/div/div/div[1]/h2/a/span'
-
-#COLOCAR AQUI O WAITUNTIL
-click = driver.find_element_by_xpath(path_primeiro_livro)
-click.click()
-
-
-
-driver.get('https://www.skoob.com.br/livro/636009ED637542')
-
-click = driver.find_element_by_xpath('//*[@id="livro-perfil-sinopse-txt"]/p')
-click.text
-
-click.click()
-
-
-
-
-
-
-
-iframe = driver.find_element_by_xpath('//*[@id="bookDesc_iframe_wrapper"]')
-driver.switch_to.frame(iframe)
-aa = driver.switch_to.default_content()
-
-
-
-
-
-# Pega o XPath do iframe e atribui a uma variável
-iframe = driver.find_element_by_xpath("//*[@id="editor"]/div[3]/div[3]/iframe")
-
-# Muda o foco para o iframe
-driver.switch_to.frame(iframe)
-
-# Retorna para a janela principal (fora do iframe)
-driver.switch_to.default_content()
-type(aa)
-
-
-
-
-desc_iframe = driver.switch_to.frame('//*[@id="bookDesc_iframe"]')
-
-
-
-
-driver.find_element_by_id('//*[@id="bookDescription_feature_div"]')
-
-dir(driver.find_element_by_xpath('//*[@id="bookDescription_feature_div"]'))
-
-driver.find_element_by_xpath('//*[@id="bookDescription_feature_div"]').value_of_css_property
-
-
-driver.text
-
-
-
+with open('Historia.csv', 'r') as acc_csv:
+    acc_csv.close()
