@@ -25,21 +25,23 @@ df = pd.read_csv('Todos os Livros.csv')
 converteLista = lambda x: eval(x)
 df = [df.iloc[i].apply(converteLista) for i in range(len(df))]
 
-#CLEANING LIST
-for i in range(len(df)):
-    for j in range(len(df[i])):
-        lista = df[i][j]
-        lista_tratada = [livro for livro in lista if livro != 'Mais vendido']
-        lista_tratada = [livro for livro in lista if livro != 'Patrocinados']
-
-        df[i][j] = lista_tratada
 
 #DATAFRAME
 df = pd.DataFrame(df)
 df = df.T
 
+
 CATEGORIAS = ['Auto Ajuda', 'Ficção Cientifica', 'Historia', 'Literatura', 'Policial Suspense Misterio', 'Romance']
 df.columns = CATEGORIAS
+
+
+#DATA CLEANING EM LIVROS
+armazena_livros = []
+for i in range(len(df)):
+    livros = [livro for livro in df['Literatura'][i] if (livro != 'Mais vendido') & (livro != 'Patrocinados')]
+    armazena_livros.append(livros)
+
+df['Literatura'] = armazena_livros
 
 
 #FUNÇÃO PARA TRATAR TEXTO
@@ -73,12 +75,11 @@ for CATEGORIA in CATEGORIAS:
         df[CATEGORIA][i] = lista_tratada.to_list()
 
 
-
 #--------------------------------------------#
 #               Preliminares                 #
 #--------------------------------------------#
 
-#os.mknod('Historia.csv')
+os.mknod('Literatura.csv')
 
 #--------------------------------------------#
 #               Web Scraping                 #
@@ -94,17 +95,15 @@ driver.get(f'https://www.skoob.com.br/')
 input('Insira Logina e Senha\n')
 
 
-
-
 for i in range(len(df)):
-    for j in range(len(df['Historia'][i])):
+    for j in range(len(df['Literatura'][i])):
 
         driver.refresh()
 
         try:
 
             #CAPTURANDO TÍTULO ORIGINAL
-            titulo_original = df['Historia'][i][j]
+            titulo_original = df['Literatura'][i][j]
 
             #PROCURANDO LIVRO
             busca = driver.find_element_by_xpath('//*[@id="search"]')
@@ -145,5 +144,5 @@ for i in range(len(df)):
             print('Erro: ', erro)
             continue
 
-with open('Historia.csv', 'r') as acc_csv:
+with open('Literatura.csv', 'r') as acc_csv:
     acc_csv.close()
