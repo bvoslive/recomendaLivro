@@ -138,7 +138,7 @@ for i in range(len(df)):
 
             nova_linha = titulo_original + ';' + titulo_capturado + ';' + descricao
 
-            with open('FiccaoCientifica.csv', 'a') as acc_csv:
+            with open('Literatura.csv', 'a') as acc_csv:
                 acc_csv.write(nova_linha + '\n')
         except Exception as erro:
             print('Erro: ', erro)
