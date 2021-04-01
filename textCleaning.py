@@ -7,65 +7,43 @@ from gensim.models import KeyedVectors
 from nltk.corpus import stopwords
 import nltk
 import time
+import glob
+import string
 nltk.download('stopwords')
 
 #--------------------------------------------#
 #               Data Cleaning                #
 #--------------------------------------------#
 
-df = pd.read_csv('FiccaoCientifica.csv', header=None, error_bad_lines=False)
 
+COLUNAS = ['ORIGINAL', 'CAPTURADO', 'DESCRICAO']
 
+#IMPORTANDO DATASETS
+df_ficcao = pd.read_csv('FICCAO_CIENTIFICA.csv', header = None, sep = ';', error_bad_lines=False, names = COLUNAS)
+df_ajuda = pd.read_csv('AUTO_AJUDA.csv', header = None, sep = ';', error_bad_lines = False, names = COLUNAS)
+df_historia = pd.read_csv('HISTORIA.csv', header = None, sep = ';', error_bad_lines = False, names = COLUNAS)
+df_literatura = pd.read_csv('LITERATURA.csv', header = None, sep = ';',error_bad_lines = False, names = COLUNAS)
+df_misterio = pd.read_csv('POLICIAL_SUSPENSE_MISTERIO.csv', sep = ';',header = None, error_bad_lines=False, names = COLUNAS)
+df_romance = pd.read_csv('ROMANCE.csv', header = None, sep = ';',error_bad_lines = False, names = COLUNAS)
 
+df_ficcao['TIPO'] = 'FICCAO CIENTIFICA'
+df_ajuda['TIPO'] = 'AUTO AJUDA'
+df_historia['TIPO'] = 'HISTORIA'
+df_literatura['TIPO'] = 'LITERATURA'
+df_misterio['TIPO'] = 'POLICIAL SUSPENSE MISTERIO'
+df_romance['TIPO'] = 'ROMANCE'
 
+#CONCATENANDO DATAFRAMES
+df = pd.concat([df_ficcao, df_ajuda, df_historia, df_literatura, df_misterio, df_romance])
 
-lista_livros = [item for item in df[0] if 'Mais vendido' not in item]
-df = pd.Series(lista_livros)
+#ELIMINANDO NULOS
+df.dropna(inplace=True)
 
-tam_str = lambda x: x.count(';')
-catch_comma = df.apply(tam_str)
-catch_comma = catch_comma > 0
-
-df = df[catch_comma]
 df.reset_index(drop=True, inplace=True)
-
-
-
-for i in range(len(df)):
-
-    texto_analisado = list(df[i])
-
-    count = 0
-    for j in range(len(texto_analisado)):
-        
-        
-        if texto_analisado[j] == ';':
-            texto_analisado[j] = '_'
-            count+=1
-
-        if count == 2: break
-    
-    df[i] = ''.join(texto_analisado)
-
-#SEPARANDO POR _
-sep_underline = lambda x: x.split('_')
-df = df.apply(sep_underline)
-
-df = df.to_list()
-df = pd.DataFrame(df, columns = ['ORIGINAL', 'CAPTURADO', 'DESCRICAO'])
-
-df.dropna(subset=['DESCRICAO'], inplace=True)
-df.reset_index(drop=True, inplace=True)
-
-
-
-
-
 
 #--------------------------------------------#
 #         Natural Language Processing        #
 #--------------------------------------------#
-
 
 #IMPORTANDO MODELO PRE-TREINADO
 model = KeyedVectors.load_word2vec_format('/home/bruno/Documents/Model Zoo/cbow_s100.txt')
@@ -73,15 +51,80 @@ model = KeyedVectors.load_word2vec_format('/home/bruno/Documents/Model Zoo/cbow_
 #REMOVENDO STOPWORDS
 portuguese_stopwords = stopwords.words('portuguese')
 
+#ELIMINANDO PONTUACOES
+pontuacoes = string.punctuation
 
-fragmento_sentenca_atual = df['DESCRICAO'][137]
+def textCleaning(descricao: str) -> str:
 
-sentenca_atual = fragmento_sentenca_atual.lower().split()
-sentenca_atual = [word for word in sentenca_atual if not word in set(portuguese_stopwords)]
-sentenca_atual = [word for word in sentenca_atual if not word.isnumeric()]
+    descricao = [letra for letra in descricao if letra not in pontuacoes]
+    descricao = ''.join(descricao)
+
+    descricao = descricao.lower().split()
+
+    descricao = [palavra for palavra in descricao if not palavra in set(portuguese_stopwords)]
+    descricao = [palavra for palavra in descricao if not palavra.isnumeric()]
+
+    return descricao
 
 
-sentenca_atual
+#TEXT CLEANING
+lista_descricao = df['DESCRICAO'].to_list()
+
+for i in range(len(lista_descricao)):
+
+    lista_descricao[i] = textCleaning(lista_descricao[i])
+
+
+
+#sentenca_atual = lista_descricao[1]
+
+sentenca_atual = str(input())
+sentenca_atual = textCleaning(sentenca_atual)
+
+
+
+pontos_acc = []
+for i in range(len(lista_descricao)):
+    sentenca_compara = lista_descricao[i]
+    pontuacao = model.wmdistance(sentenca_atual, sentenca_compara)
+    pontos_acc.append(pontuacao)
+
+
+
+
+df_sort = df.copy()
+df_sort['PONTOS'] = pontos_acc
+df_sort.drop_duplicates('DESCRICAO', inplace=True)
+df_sort.sort_values('PONTOS', inplace=True)
+df_sort.reset_index(drop=True, inplace=True)
+
+df_sort[['CAPTURADO', 'DESCRICAO', 'TIPO']].iloc[:5]
+
+
+
+
+
+
+
+
+
+
+#0-----------------------------------
+lista_descricao[i]
+
+
+sentenca_atual = str(input())
+
+
+
+
+sentenca_comparada
+sentenca_atual = model.wmdistance(sentenca_atual, sentenca_comparada)
+
+
+
+
+
 
 
 
@@ -98,11 +141,7 @@ for i in range(len(df['DESCRICAO'])):
     pontuacoes.append(ponto)
 stop = time.time()
 
-
-
-
 stop - start
-
 
 df['PONTOS'] = pontuacoes
 
