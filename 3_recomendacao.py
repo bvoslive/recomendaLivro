@@ -19,12 +19,12 @@ nltk.download('stopwords')
 COLUNAS = ['ORIGINAL', 'CAPTURADO', 'DESCRICAO']
 
 #IMPORTANDO DATASETS
-df_ficcao = pd.read_csv('FICCAO_CIENTIFICA.csv', header = None, sep = ';', error_bad_lines=False, names = COLUNAS)
-df_ajuda = pd.read_csv('AUTO_AJUDA.csv', header = None, sep = ';', error_bad_lines = False, names = COLUNAS)
-df_historia = pd.read_csv('HISTORIA.csv', header = None, sep = ';', error_bad_lines = False, names = COLUNAS)
-df_literatura = pd.read_csv('LITERATURA.csv', header = None, sep = ';',error_bad_lines = False, names = COLUNAS)
-df_misterio = pd.read_csv('POLICIAL_SUSPENSE_MISTERIO.csv', sep = ';',header = None, error_bad_lines=False, names = COLUNAS)
-df_romance = pd.read_csv('ROMANCE.csv', header = None, sep = ';',error_bad_lines = False, names = COLUNAS)
+df_ficcao = pd.read_csv('../CSVs/FICCAO_CIENTIFICA.csv', header = None, sep = ';', error_bad_lines=False, names = COLUNAS)
+df_ajuda = pd.read_csv('../CSVs/AUTO_AJUDA.csv', header = None, sep = ';', error_bad_lines = False, names = COLUNAS)
+df_historia = pd.read_csv('../CSVs/HISTORIA.csv', header = None, sep = ';', error_bad_lines = False, names = COLUNAS)
+df_literatura = pd.read_csv('../CSVs/LITERATURA.csv', header = None, sep = ';',error_bad_lines = False, names = COLUNAS)
+df_misterio = pd.read_csv('../CSVs/POLICIAL_SUSPENSE_MISTERIO.csv', sep = ';',header = None, error_bad_lines=False, names = COLUNAS)
+df_romance = pd.read_csv('../CSVs/ROMANCE.csv', header = None, sep = ';',error_bad_lines = False, names = COLUNAS)
 
 df_ficcao['TIPO'] = 'FICCAO CIENTIFICA'
 df_ajuda['TIPO'] = 'AUTO AJUDA'
@@ -32,6 +32,7 @@ df_historia['TIPO'] = 'HISTORIA'
 df_literatura['TIPO'] = 'LITERATURA'
 df_misterio['TIPO'] = 'POLICIAL SUSPENSE MISTERIO'
 df_romance['TIPO'] = 'ROMANCE'
+
 
 #CONCATENANDO DATAFRAMES
 df = pd.concat([df_ficcao, df_ajuda, df_historia, df_literatura, df_misterio, df_romance])
@@ -46,7 +47,7 @@ df.reset_index(drop=True, inplace=True)
 #--------------------------------------------#
 
 #IMPORTANDO MODELO PRE-TREINADO
-model = KeyedVectors.load_word2vec_format('/home/bruno/Documents/Model Zoo/cbow_s100.txt')
+model = KeyedVectors.load_word2vec_format('/home/bruno/Documents/Model Zoo/glove_s300.txt')
 
 #REMOVENDO STOPWORDS
 portuguese_stopwords = stopwords.words('portuguese')
@@ -74,14 +75,8 @@ for i in range(len(lista_descricao)):
 
     lista_descricao[i] = textCleaning(lista_descricao[i])
 
-
-
-#sentenca_atual = lista_descricao[1]
-
-sentenca_atual = str(input())
+sentenca_atual = str(input('Digite aqui uma descrição: '))
 sentenca_atual = textCleaning(sentenca_atual)
-
-
 
 pontos_acc = []
 for i in range(len(lista_descricao)):
@@ -89,61 +84,10 @@ for i in range(len(lista_descricao)):
     pontuacao = model.wmdistance(sentenca_atual, sentenca_compara)
     pontos_acc.append(pontuacao)
 
-
-
-
 df_sort = df.copy()
 df_sort['PONTOS'] = pontos_acc
 df_sort.drop_duplicates('DESCRICAO', inplace=True)
 df_sort.sort_values('PONTOS', inplace=True)
 df_sort.reset_index(drop=True, inplace=True)
 
-df_sort[['CAPTURADO', 'DESCRICAO', 'TIPO']].iloc[:5]
-
-
-
-
-
-
-
-
-
-
-#0-----------------------------------
-lista_descricao[i]
-
-
-sentenca_atual = str(input())
-
-
-
-
-sentenca_comparada
-sentenca_atual = model.wmdistance(sentenca_atual, sentenca_comparada)
-
-
-
-
-
-
-
-
-start = time.time()
-pontuacoes = []
-for i in range(len(df['DESCRICAO'])):
-
-
-    sentenca_comparada = df['DESCRICAO'][i].lower().split()
-    sentenca_comparada = [word for word in sentenca_comparada if not word in set(portuguese_stopwords)]
-    sentenca_comparada = [word for word in sentenca_comparada if not word.isnumeric()]
-
-    ponto = model.wmdistance(sentenca_atual, sentenca_comparada)
-    pontuacoes.append(ponto)
-stop = time.time()
-
-stop - start
-
-df['PONTOS'] = pontuacoes
-
-df.sort_values('PONTOS')['DESCRICAO'].iloc[6]
-
+print(df_sort.iloc[:5])

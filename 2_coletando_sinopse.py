@@ -15,11 +15,10 @@ from selenium.webdriver.common.keys import Keys
 #--------------------------------------------#
 
 #IMPORT DATASET
-df = pd.read_csv('Todos os Livros.csv')
+df = pd.read_csv('../CSVs/Todos os Livros.csv')
 
 #instalar 
 #sudo apt-get install chromium-chromedriver
-
 
 #APPLY EVAL
 converteLista = lambda x: eval(x)
@@ -29,7 +28,6 @@ df = [df.iloc[i].apply(converteLista) for i in range(len(df))]
 #DATAFRAME
 df = pd.DataFrame(df)
 df = df.T
-
 
 CATEGORIAS = ['AUTO_AJUDA', 'FICCAO_CIENTIFICA', 'HISTORIA', 'LITERATURA', 'POLICIAL_SUSPENSE_MISTERIO', 'ROMANCE']
 df.columns = CATEGORIAS

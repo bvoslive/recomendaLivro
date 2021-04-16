@@ -99,10 +99,6 @@ web.get(policial_suspense_misterio)
 num_elementos = web.find_elements_by_xpath('//*[@id="search"]/div[1]/div[2]/div/span[3]/div[2]/div')
 
 
-
-
-
-
 #Número de elementos
 num_elementos = len(num_elementos)
 num_elementos = num_elementos-2
@@ -121,7 +117,7 @@ for k in range(1, num_elementos):
 
 
 def capturaNomesLivros():
-    nomess = web.find_elements_by_xpath('//*[@id="search"]/div[1]/div[2]/div/span[3]/div[2]/div')
+    nomes = web.find_elements_by_xpath('//*[@id="search"]/div[1]/div[2]/div/span[3]/div[2]/div')
 
     TAM_NOMES = len(nomess)
 
@@ -153,7 +149,6 @@ capturaNomesLivros()
 
 GENEROS = ['Auto Ajuda', 'Ficção Científica', 'História', 'Literatura e Ficção', 'Policial Suspense e Mistério', 'Romance']
 
-
 LINKS = [
     'https://www.amazon.com.br/s?i=stripbooks&bbn=7841278011&rh=n%3A6740748011%2Cn%3A7841720011&dc&fs=true&qid=1613435977&rnid=7841278011&ref=sr_nr_n_4',
     'https://www.amazon.com.br/s?rh=n%3A7841775011&fs=true&ref=lp_7841775011_sar',
@@ -163,12 +158,8 @@ LINKS = [
     'https://www.amazon.com.br/s?i=stripbooks&bbn=7841278011&rh=n%3A6740748011%2Cn%3A7882388011&dc&fs=true&qid=1613520812&rnid=7841278011&ref=sr_nr_n_26'
 ]
 
-
-len(LINKS)
-
 lista_pesquisa = pd.DataFrame({'GENEROS': GENEROS, 'LINKS': LINKS})
 
-lista_pesquisa
 
 
 
@@ -202,10 +193,6 @@ for i in range(len(lista_pesquisa)):
         proximo.click()
 
     todos_os_livros.append(capta_livro)
-
-
-todos_os_livros
-
 
 
 todos_os_livros = pd.DataFrame(todos_os_livros)
