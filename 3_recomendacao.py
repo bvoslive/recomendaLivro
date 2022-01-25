@@ -15,7 +15,6 @@ nltk.download('stopwords')
 #               Data Cleaning                #
 #--------------------------------------------#
 
-
 COLUNAS = ['ORIGINAL', 'CAPTURADO', 'DESCRICAO']
 
 #IMPORTANDO DATASETS
@@ -32,7 +31,6 @@ df_historia['TIPO'] = 'HISTORIA'
 df_literatura['TIPO'] = 'LITERATURA'
 df_misterio['TIPO'] = 'POLICIAL SUSPENSE MISTERIO'
 df_romance['TIPO'] = 'ROMANCE'
-
 
 #CONCATENANDO DATAFRAMES
 df = pd.concat([df_ficcao, df_ajuda, df_historia, df_literatura, df_misterio, df_romance])
@@ -59,20 +57,16 @@ def textCleaning(descricao: str) -> str:
 
     descricao = [letra for letra in descricao if letra not in pontuacoes]
     descricao = ''.join(descricao)
-
     descricao = descricao.lower().split()
-
     descricao = [palavra for palavra in descricao if not palavra in set(portuguese_stopwords)]
     descricao = [palavra for palavra in descricao if not palavra.isnumeric()]
 
     return descricao
 
-
 #TEXT CLEANING
 lista_descricao = df['DESCRICAO'].to_list()
 
 for i in range(len(lista_descricao)):
-
     lista_descricao[i] = textCleaning(lista_descricao[i])
 
 sentenca_atual = str(input('Digite aqui uma descrição: '))
