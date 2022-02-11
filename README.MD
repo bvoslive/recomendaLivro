@@ -1,10 +1,17 @@
 
 # Recomendando livros com Word Embeddings
-_
 
-dados
+Projeto de recomendação de livros baseados em conteúdo usando Word Embeddings e Web Scraping
+para coleta de sinopses dos livros disponibilizados pela Amazon
+
+Clone this repo `git clone https://github.com/bvoslive/recomendaLivro.git`
 
 Objetivo
+
+O objetivo deste projeto é criar um sistema de recomendação baseado em conteúdo usando a descrições dos livros da Amazon
+
+
+
 Métodos usados
 
 Tecnologias
