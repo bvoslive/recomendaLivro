@@ -8,9 +8,10 @@ Clone this repo `git clone https://github.com/bvoslive/recomendaLivro.git`
 
 Objetivo
 
-O objetivo deste projeto é criar um sistema de recomendação baseado em conteúdo usando a descrições dos livros da Amazon
+O objetivo deste projeto é criar um sistema de recomendação baseado em conteúdo usando a descrições de alguns livros da Amazon de diferentes categorias.
 
 
+llll
 
 Métodos usados
 
