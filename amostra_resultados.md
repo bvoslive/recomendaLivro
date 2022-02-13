@@ -10,11 +10,13 @@ Recomendação 2:
 Livro: A Maldição do Titã (Percy Jackson & Os Olimpianos #03)
 Descrição: Um chamado do amigo Grover deixa Percy a postos para mais uma missão: dois novos meios-sangues foram encontrados, e sua ascendência ainda é desconhecida. Como sempre, Percy sabe que precisará contar com o poder de seus aliados heróis, com sua leal espada Contracorrente… e com uma caroninha da mãe. O que eles ainda não sabem é que os jovens descobertos não são os únicos em perigo: Cronos, o Senhor dos Titãs, arquitetou um de seus planos mais traiçoeiros, e nossos heróis serão presas fáceis. Um monstro ancestral foi despertado — um ser com poder suficiente para destruir o Olimpo –, e Ártemis, a única deusa capaz de encontrá-lo, desapareceu. Percy e seus amigos têm apenas uma semana para resgatar a deusa sequestrada e solucionar o mistério que ronda o monstro que ela caçava.
 
-#2 Minha Descrição
+## 2 Minha Descrição
 Após investigar o assassinato de sua esposa, Mister Hugo descobre estar diante de um mistério que põe em risco toda a sua família. A cada nova pista, mais dúvidas surgem, será que ele sairá ileso desta situação?
 Recomendação 1
 Livro: Não Há Segunda Chance
 Descrição: Com a vida por um fio, Marc Seidman descobre que seu verdadeiro pesadelo está para começar. Afinal, ele fora baleado, sua mulher está morta e sua filha, desaparecida. E ele não sabe em quem confiar: em uma ex-agente do FBI ou nos seqüestradores, que mandam recados cada vez mais dúbios. Intriga, mistério e suspense de tirar o fôlego.
+
+
 Recomendação 2
 Livro: O Chamado do Cuco
 Descrição: Quando uma modelo problemática cai para a morte de uma varanda coberta de neve, presume-se que ela tenha cometido suicídio. No entanto, seu irmão tem suas dúvidas e decide chamar o detetive particular Cormoran Strike para investigar o caso.
