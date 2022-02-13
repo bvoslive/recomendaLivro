@@ -25,6 +25,10 @@ O objetivo deste projeto é criar um sistema de recomendação baseado em conte�
 
 ## Resultados
 
+No link abaixo apresento 3 exemplos de recomendações de livros disponíveis na Amazon baseadas em descrições que eu mesmo sintetizei
+
+https://github.com/bvoslive/recomendaLivro/blob/master/amostra_resultados.md
+
 ## Contato
 
 https://www.linkedin.com/in/bruno-vinicius-souza/
