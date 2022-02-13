@@ -23,7 +23,8 @@ O objetivo deste projeto é criar um sistema de recomendação baseado em conte�
 * Gensim
 * NLTK
 
+## Resultados
 
-Resultados
+## Contato
 
-contato
+https://www.linkedin.com/in/bruno-vinicius-souza/
